@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="static/css/vant.min.css">
+    <link rel="stylesheet" href="static/css/index.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 顶部导航栏 -->
+        <van-row>
+            <van-nav-bar :title="navbar.title" @click-right="onClickRight" fixed>
+                <van-icon name="wap-nav" slot="right" />
+            </van-nav-bar>
+        </van-row>
+    
+        <!-- 网站通知插件 -->
+        <van-row>
+                <van-notice-bar mode="link" :text="notice.text" left-icon='static/images/icons/volume.png'/>
+        </van-row> 
+        
+        <!-- 内容展示区域 -->
+        <van-row>
+            <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+                <van-cell v-for="(item,index) in list" :key="index">
+                    <div :id="item.id" @click="open_model(item.id,item.text)">
+                        <strong  @click="open_model(item.id,item.text)" :title="item.text" v-text="item.text"></strong>
+                        <van-tag round type="danger" v-text="item.time"></van-tag>
+                    </div>
+                </van-cell>
+            </van-list>
+        </van-row>
+        
+        <!-- 部件:类型选择器 -->
+        <van-row>
+            <van-actionsheet v-model="show" :actions="actions" @select="onSelect"/>
+        </van-row>
+        <!-- 阅读器 -->
+        <van-row>
+            <van-popup v-model="model_show" @click-overlay="close_model" v-html="model_text">
+            </van-popup>
+        </van-row>
+        
+    </div>
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/js/vue.min.js"></script>
+    <script src="static/js/vant.min.js"></script>
+    <script src="static/js/index.js"></script>
+</body>
+</html>
